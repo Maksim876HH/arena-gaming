@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Bookings - ARENA</title>
+    <link rel="stylesheet" href="styles/main.css" />
+    <link rel="stylesheet" href="styles/navbar.css" />
+    <link rel="stylesheet" href="styles/dashboard.css" />
+    <link rel="stylesheet" href="styles/booking.css" />
+    <link rel="stylesheet" href="styles/footer.css" />
+  </head>
+  <body>
+    <div id="root">
+      <!-- Navigation Bar -->
+      <nav class="navbar">
+        <div class="navbar-container">
+          <div
+            class="navbar-logo"
+            onclick="window.location.href = 'index.html'"
+          >
+            ARENA
+          </div>
+          <div class="navbar-links">
+            <a href="index.html#zones" class="nav-link">Zones</a>
+            <a href="index.html#pricing" class="nav-link">Pricing</a>
+            <a href="index.html#gallery" class="nav-link">Gallery</a>
+            <a href="index.html#contact" class="nav-link">Contact</a>
+          </div>
+          <div class="navbar-auth">
+            <button class="btn-login">Login</button>
+            <button class="btn-register">Register</button>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Dashboard Section -->
+      <section class="dashboard-section">
+        <div class="container">
+          <div class="dashboard-header">
+            <h1>My Bookings</h1>
+            <button
+              class="btn btn-primary"
+              onclick="window.location.href = 'index.html'"
+            >
+              ← Back to Home
+            </button>
+          </div>
+
+          <div class="dashboard-content">
+            <!-- Filters -->
+            <div class="booking-filters">
+              <button class="filter-btn active" data-filter="all">
+                All Bookings
+              </button>
+              <button class="filter-btn" data-filter="upcoming">
+                Upcoming
+              </button>
+              <button class="filter-btn" data-filter="completed">
+                Completed
+              </button>
+              <button class="filter-btn" data-filter="cancelled">
+                Cancelled
+              </button>
+            </div>
+
+            <!-- Bookings List -->
+            <div id="bookings-list" class="bookings-list">
+              <!-- Dynamically populated -->
+            </div>
+
+            <!-- Empty State -->
+            <div id="empty-state" class="empty-state" style="display: none">
+              <div class="empty-icon">📅</div>
+              <h3>No Bookings Yet</h3>
+              <p>Start booking your gaming session now!</p>
+              <button
+                class="btn btn-primary"
+                onclick="window.location.href = 'index.html'"
+              >
+                Book Now
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Booking Details Modal -->
+      <div id="booking-details-modal" class="booking-modal">
+        <div class="booking-modal-content">
+          <div class="booking-header">
+            <h2>Booking Details</h2>
+            <button class="close-booking" onclick="closeDetailsModal()">
+              ✕
+            </button>
+          </div>
+          <div id="booking-details-content"></div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="container">
+          <div class="footer-grid">
+            <div class="footer-col">
+              <h3>ARENA</h3>
+              <p>Premium esports gaming lounge. Where champions compete.</p>
+            </div>
+            <div class="footer-col">
+              <h4>Quick Links</h4>
+              <ul>
+                <li><a href="index.html#zones">Zones</a></li>
+                <li><a href="index.html#pricing">Pricing</a></li>
+                <li><a href="#">Bookings</a></li>
+                <li><a href="#">Events</a></li>
+              </ul>
+            </div>
+            <div class="footer-col">
+              <h4>Contact</h4>
+              <ul>
+                <li>Downtown Gaming Hub</li>
+                <li>+1 (555) 123-4567</li>
+                <li>hello@arena.gg</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="module" src="src/main.js"></script>
+    <script type="module" src="src/dashboard.js"></script>
+  </body>
+</html>
