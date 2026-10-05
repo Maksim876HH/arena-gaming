@@ -1,0 +1,825 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ARENA - Premium Gaming Lounge</title>
+    <link rel="stylesheet" crossorigin href="/arena-gaming/assets/index-CKZu6QDd.css">
+  </head>
+  <body>
+    <div id="root">
+      <!-- Navigation Bar -->
+      <nav class="navbar">
+        <div class="navbar-container">
+          <div class="navbar-logo">ARENA</div>
+          <div class="navbar-links">
+            <a href="#zones" class="nav-link">Zones</a>
+            <a href="#pricing" class="nav-link">Pricing</a>
+            <a href="#gallery" class="nav-link">Gallery</a>
+            <a href="#contact" class="nav-link">Contact</a>
+          </div>
+          <div class="navbar-auth">
+            <a href="dashboard.html" class="btn-dashboard">My Bookings</a>
+            <button class="btn-login">Login</button>
+            <button class="btn-register">Register</button>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Hero Section -->
+      <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+          <h1 class="hero-title">ARENA</h1>
+          <p class="hero-subtitle">
+            Experience competitive gaming at its finest. World-class stations,
+            elite tournaments, and a community of champions.
+          </p>
+          <div class="hero-buttons">
+            <button class="btn btn-primary" onclick="openBookingModal()">
+              Book a Station →
+            </button>
+            <button
+              class="btn btn-secondary"
+              onclick="
+                document
+                  .getElementById('zones')
+                  .scrollIntoView({ behavior: 'smooth' })
+              "
+            >
+              Explore Zones
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Gaming Zones Section -->
+      <section class="gaming-zones" id="zones">
+        <div class="container">
+          <h2 class="section-title">Gaming Zones</h2>
+          <p class="section-subtitle">
+            Choose your arena. Each zone is engineered for performance and
+            precision.
+          </p>
+
+          <!-- Search & Filter Section -->
+          <div class="search-filter-section">
+            <!-- Search Bar -->
+            <div class="search-bar">
+              <input
+                type="text"
+                id="zone-search"
+                placeholder="Search zones by name..."
+                class="search-input"
+              />
+              <span class="search-icon">🔍</span>
+            </div>
+
+            <!-- Filters -->
+            <div class="filters-container">
+              <!-- Price Filter -->
+              <div class="filter-group">
+                <label class="filter-label">Price Range</label>
+                <div class="price-filter">
+                  <input
+                    type="range"
+                    id="price-filter"
+                    min="0"
+                    max="50"
+                    value="50"
+                    class="price-slider"
+                  />
+                  <div class="price-range-display">
+                    <span>$0</span>
+                    <span id="price-value">$50+</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Availability Filter -->
+              <div class="filter-group">
+                <label class="filter-label">Availability</label>
+                <div class="checkbox-group">
+                  <label class="checkbox-item">
+                    <input
+                      type="checkbox"
+                      value="available"
+                      class="availability-filter"
+                      checked
+                    />
+                    <span>Available</span>
+                  </label>
+                  <label class="checkbox-item">
+                    <input
+                      type="checkbox"
+                      value="limited"
+                      class="availability-filter"
+                    />
+                    <span>Limited</span>
+                  </label>
+                  <label class="checkbox-item">
+                    <input
+                      type="checkbox"
+                      value="unavailable"
+                      class="availability-filter"
+                    />
+                    <span>Unavailable</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Equipment Filter -->
+              <div class="filter-group">
+                <label class="filter-label">Equipment</label>
+                <div class="checkbox-group">
+                  <label class="checkbox-item">
+                    <input
+                      type="checkbox"
+                      value="rtx"
+                      class="equipment-filter"
+                    />
+                    <span>RTX GPU</span>
+                  </label>
+                  <label class="checkbox-item">
+                    <input
+                      type="checkbox"
+                      value="streaming"
+                      class="equipment-filter"
+                    />
+                    <span>Streaming Setup</span>
+                  </label>
+                  <label class="checkbox-item">
+                    <input
+                      type="checkbox"
+                      value="console"
+                      class="equipment-filter"
+                    />
+                    <span>Console</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Game Type Filter -->
+              <div class="filter-group">
+                <label class="filter-label">Game Type</label>
+                <div class="checkbox-group">
+                  <label class="checkbox-item">
+                    <input
+                      type="checkbox"
+                      value="competitive"
+                      class="game-filter"
+                    />
+                    <span>Competitive</span>
+                  </label>
+                  <label class="checkbox-item">
+                    <input type="checkbox" value="casual" class="game-filter" />
+                    <span>Casual</span>
+                  </label>
+                  <label class="checkbox-item">
+                    <input
+                      type="checkbox"
+                      value="tournament"
+                      class="game-filter"
+                    />
+                    <span>Tournament</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Sort By -->
+              <div class="filter-group">
+                <label class="filter-label">Sort By</label>
+                <select id="sort-by" class="sort-select">
+                  <option value="default">Default</option>
+                  <option value="price-low">Price: Low to High</option>
+                  <option value="price-high">Price: High to Low</option>
+                  <option value="popularity">Most Popular</option>
+                  <option value="rating">Highest Rated</option>
+                  <option value="availability">Most Available</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Active Filters Display -->
+            <div
+              id="active-filters"
+              class="active-filters"
+              style="display: none"
+            >
+              <span class="active-filters-label">Active Filters:</span>
+              <div id="filter-tags" class="filter-tags"></div>
+              <button class="btn-reset-filters" onclick="resetAllFilters()">
+                Reset All
+              </button>
+            </div>
+          </div>
+
+          <div class="zones-grid-modern">
+            <!-- VIP ARENA - Large Card -->
+            <div class="zone-card-modern zone-large" data-zone="vip">
+              <div class="zone-image">
+                <img src="/arena-gaming/assets/VIPARENA-BqjSrB-z.jpg" alt="VIP ARENA" />
+                <div class="zone-overlay"></div>
+              </div>
+              <div class="zone-content">
+                <div class="zone-badge">PREMIUM</div>
+                <h3>VIP ARENA</h3>
+                <p>Premium 4K gaming stations with top-tier RTX 4090 GPUs</p>
+                <div class="zone-features">
+                  <span class="feature">RTX 4090</span>
+                  <span class="feature">240Hz Monitors</span>
+                  <span class="feature">Private Booths</span>
+                </div>
+                <button class="btn btn-primary btn-zone">Explore Zone</button>
+              </div>
+            </div>
+
+            <!-- BOOTCAMPS -->
+            <div class="zone-card-modern" data-zone="bootcamp">
+              <div class="zone-image">
+                <img src="/arena-gaming/assets/Bootcamps-DS2SAExw.jpeg" alt="Bootcamps" />
+                <div class="zone-overlay"></div>
+              </div>
+              <div class="zone-content">
+                <div class="zone-badge">TRAINING</div>
+                <h3>Bootcamps</h3>
+                <p>Intensive esports training programs</p>
+                <div class="zone-features">
+                  <span class="feature">Pro Coaching</span>
+                  <span class="feature">Ranked Matches</span>
+                  <span class="feature">Team Events</span>
+                </div>
+                <button class="btn btn-primary btn-zone">Explore Zone</button>
+              </div>
+            </div>
+
+            <!-- PS5 LOUNGE -->
+            <div class="zone-card-modern" data-zone="ps5">
+              <div class="zone-image">
+                <img src="/arena-gaming/assets/ps5loungezone-DCwVxScj.jpg" alt="PS5 Lounge" />
+                <div class="zone-overlay"></div>
+              </div>
+              <div class="zone-content">
+                <div class="zone-badge">CONSOLE</div>
+                <h3>PS5 Lounge</h3>
+                <p>Console gaming hub with group tournaments</p>
+                <div class="zone-features">
+                  <span class="feature">Tournaments</span>
+                  <span class="feature">Streaming Setup</span>
+                  <span class="feature">Arcade Feel</span>
+                </div>
+                <button class="btn btn-primary btn-zone">Explore Zone</button>
+              </div>
+            </div>
+
+            <!-- STREAMING STUDIO -->
+            <div class="zone-card-modern" data-zone="streaming">
+              <div class="zone-image">
+                <img src="/arena-gaming/assets/StreamingStudio-BZYGjfR1.jpg" alt="Streaming Studio" />
+                <div class="zone-overlay"></div>
+              </div>
+              <div class="zone-content">
+                <div class="zone-badge">CONTENT</div>
+                <h3>Streaming Studio</h3>
+                <p>
+                  Professional streaming setup with 4K cameras and green screen
+                </p>
+                <div class="zone-features">
+                  <span class="feature">4K Cameras</span>
+                  <span class="feature">Green Screen</span>
+                  <span class="feature">Audio Mixing</span>
+                </div>
+                <button class="btn btn-primary btn-zone">Explore Zone</button>
+              </div>
+            </div>
+
+            <!-- TOURNAMENT ARENA -->
+            <div class="zone-card-modern" data-zone="tournament">
+              <div class="zone-image">
+                <img src="/arena-gaming/assets/TournamentArena-CK6bD3Qf.jpg" alt="Tournament Arena" />
+                <div class="zone-overlay"></div>
+              </div>
+              <div class="zone-content">
+                <div class="zone-badge">COMPETITION</div>
+                <h3>Tournament Arena</h3>
+                <p>Large-scale esports tournaments and live events</p>
+                <div class="zone-features">
+                  <span class="feature">Large Display</span>
+                  <span class="feature">Live Commentary</span>
+                  <span class="feature">Spectator Seating</span>
+                </div>
+                <button class="btn btn-primary btn-zone">Explore Zone</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Popular Games Section -->
+      <section class="games-section" id="games">
+        <div class="games-container">
+          <h2 class="games-title">Popular Games</h2>
+          <p class="games-subtitle">
+            Play the most popular esports titles in our premium gaming zones
+          </p>
+
+          <div class="games-carousel">
+            <div class="games-track" id="games-track">
+              <div class="game-card">
+                <img src="/arena-gaming/assets/Counter-Strike2-wxr-xazG.jpg" alt="Game 1" />
+                <div class="game-card-overlay">
+                  <div class="game-card-name">Counter-Strike 2</div>
+                </div>
+              </div>
+              <div class="game-card">
+                <img src="/arena-gaming/assets/Valorant-DZd0IQhV.jpg" alt="Game 2" />
+                <div class="game-card-overlay">
+                  <div class="game-card-name">Valorant</div>
+                </div>
+              </div>
+              <div class="game-card">
+                <img src="/arena-gaming/assets/GTA%20V-D6bLuOrB.png" alt="Game 3" />
+                <div class="game-card-overlay">
+                  <div class="game-card-name">GTA V</div>
+                </div>
+              </div>
+              <div class="game-card">
+                <img src="/arena-gaming/assets/Dota%202-CopWjd0E.jpg" alt="Game 4" />
+                <div class="game-card-overlay">
+                  <div class="game-card-name">Dota 2</div>
+                </div>
+              </div>
+              <div class="game-card">
+                <img src="/arena-gaming/assets/Fortnite-BDztkHcm.jpg" alt="Game 5" />
+                <div class="game-card-overlay">
+                  <div class="game-card-name">Fortnite</div>
+                </div>
+              </div>
+              <div class="game-card">
+                <img src="/arena-gaming/assets/Apex%20Legends-CKZlkBA-.jpg" alt="Game 6" />
+                <div class="game-card-overlay">
+                  <div class="game-card-name">Apex Legends</div>
+                </div>
+              </div>
+              <div class="game-card">
+                <img src="/arena-gaming/assets/Overwatch%202-B929Jxkr.jpg" alt="Game 7" />
+                <div class="game-card-overlay">
+                  <div class="game-card-name">Overwatch 2</div>
+                </div>
+              </div>
+              <div class="game-card">
+                <img src="/arena-gaming/assets/Call%20of%20Duty-B3zNM7q7.jpg" alt="Game 8" />
+                <div class="game-card-overlay">
+                  <div class="game-card-name">Call of Duty</div>
+                </div>
+              </div>
+              <div class="game-card">
+                <img src="/arena-gaming/assets/Street%20Fighter%206-BwlWaaaP.jpg" alt="Game 9" />
+                <div class="game-card-overlay">
+                  <div class="game-card-name">Street Fighter 6</div>
+                </div>
+              </div>
+              <div class="game-card">
+                <img src="/arena-gaming/assets/Tekken%208-sBMcjgdl.jpg" alt="Game 10" />
+                <div class="game-card-overlay">
+                  <div class="game-card-name">Tekken 8</div>
+                </div>
+              </div>
+              <div class="game-card">
+                <img src="/arena-gaming/assets/PUBG-PUsjOHH4.jpg" alt="Game 11" />
+                <div class="game-card-overlay">
+                  <div class="game-card-name">PUBG</div>
+                </div>
+              </div>
+              <div class="game-card">
+                <img src="/arena-gaming/assets/Rocket%20League-Cxj7xcjQ.jpg" alt="Game 12" />
+                <div class="game-card-overlay">
+                  <div class="game-card-name">Rocket League</div>
+                </div>
+              </div>
+
+              <!-- Duplicate for seamless infinite loop -->
+              <div class="game-card">
+                <img src="/arena-gaming/assets/Counter-Strike2-wxr-xazG.jpg" alt="Game 1" />
+                <div class="game-card-overlay">
+                  <div class="game-card-name">Counter-Strike 2</div>
+                </div>
+              </div>
+              <div class="game-card">
+                <img src="/arena-gaming/assets/Valorant-DZd0IQhV.jpg" alt="Game 2" />
+                <div class="game-card-overlay">
+                  <div class="game-card-name">Valorant</div>
+                </div>
+              </div>
+              <div class="game-card">
+                <img src="/arena-gaming/assets/GTA%20V-D6bLuOrB.png" alt="Game 3" />
+                <div class="game-card-overlay">
+                  <div class="game-card-name">GTA V</div>
+                </div>
+              </div>
+              <div class="game-card">
+                <img src="/arena-gaming/assets/Dota%202-CopWjd0E.jpg" alt="Game 4" />
+                <div class="game-card-overlay">
+                  <div class="game-card-name">Dota 2</div>
+                </div>
+              </div>
+              <div class="game-card">
+                <img src="/arena-gaming/assets/Fortnite-BDztkHcm.jpg" alt="Game 5" />
+                <div class="game-card-overlay">
+                  <div class="game-card-name">Fortnite</div>
+                </div>
+              </div>
+              <div class="game-card">
+                <img src="/arena-gaming/assets/Apex%20Legends-CKZlkBA-.jpg" alt="Game 6" />
+                <div class="game-card-overlay">
+                  <div class="game-card-name">Apex Legends</div>
+                </div>
+              </div>
+              <div class="game-card">
+                <img src="/arena-gaming/assets/Overwatch%202-B929Jxkr.jpg" alt="Game 7" />
+                <div class="game-card-overlay">
+                  <div class="game-card-name">Overwatch 2</div>
+                </div>
+              </div>
+              <div class="game-card">
+                <img src="/arena-gaming/assets/Call%20of%20Duty-B3zNM7q7.jpg" alt="Game 8" />
+                <div class="game-card-overlay">
+                  <div class="game-card-name">Call of Duty</div>
+                </div>
+              </div>
+              <div class="game-card">
+                <img src="/arena-gaming/assets/Street%20Fighter%206-BwlWaaaP.jpg" alt="Game 9" />
+                <div class="game-card-overlay">
+                  <div class="game-card-name">Street Fighter 6</div>
+                </div>
+              </div>
+              <div class="game-card">
+                <img src="/arena-gaming/assets/Tekken%208-sBMcjgdl.jpg" alt="Game 10" />
+                <div class="game-card-overlay">
+                  <div class="game-card-name">Tekken 8</div>
+                </div>
+              </div>
+              <div class="game-card">
+                <img src="/arena-gaming/assets/PUBG-PUsjOHH4.jpg" alt="Game 11" />
+                <div class="game-card-overlay">
+                  <div class="game-card-name">PUBG</div>
+                </div>
+              </div>
+              <div class="game-card">
+                <img src="/arena-gaming/assets/Rocket%20League-Cxj7xcjQ.jpg" alt="Game 12" />
+                <div class="game-card-overlay">
+                  <div class="game-card-name">Rocket League</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="games-dots" id="games-dots">
+            <div class="dot active"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Booking Section (Modal) -->
+      <div id="booking-modal" class="booking-modal">
+        <div class="booking-modal-content">
+          <div class="booking-header">
+            <h2>Book Your Station</h2>
+            <button class="close-booking" onclick="closeBookingModal()">
+              ✕
+            </button>
+          </div>
+
+          <div class="booking-container">
+            <!-- Step 1: Select Date -->
+            <div class="booking-step" id="step-date">
+              <h3>Step 1: Select Date</h3>
+              <div id="booking-calendar" class="booking-calendar"></div>
+            </div>
+
+            <!-- Step 2: Select Time -->
+            <div class="booking-step hidden" id="step-time">
+              <h3>Step 2: Select Time & Duration</h3>
+              <div class="time-inputs">
+                <input type="time" id="booking-time" value="10:00" />
+                <select id="booking-duration">
+                  <option value="1">1 Hour</option>
+                  <option value="2" selected>2 Hours</option>
+                  <option value="3">3 Hours</option>
+                  <option value="4">4 Hours</option>
+                </select>
+              </div>
+              <button class="btn btn-primary" onclick="goToZoneSelection()">
+                Next
+              </button>
+            </div>
+
+            <!-- Step 3: Select Zone -->
+            <div class="booking-step hidden" id="step-zone">
+              <h3>Step 3: Select Gaming Zone</h3>
+              <div id="zone-availability" class="zone-availability">
+                <!-- Dynamically populated -->
+              </div>
+              <button class="btn btn-primary" onclick="goToReview()">
+                Next
+              </button>
+            </div>
+
+            <!-- Step 4: Review & User Info -->
+            <div class="booking-step hidden" id="step-review">
+              <h3>Step 4: Review & Confirm</h3>
+              <div class="booking-review">
+                <div class="review-item">
+                  <label>Date & Time:</label>
+                  <span id="review-datetime"></span>
+                </div>
+                <div class="review-item">
+                  <label>Zone:</label>
+                  <span id="review-zone"></span>
+                </div>
+                <div class="review-item">
+                  <label>Duration:</label>
+                  <span id="review-duration"></span>
+                </div>
+                <div class="review-item">
+                  <label>Price:</label>
+                  <span id="review-price"></span>
+                </div>
+              </div>
+
+              <div class="user-info">
+                <h4>Your Information</h4>
+                <input
+                  type="text"
+                  id="user-name"
+                  placeholder="Full Name"
+                  required
+                />
+                <input
+                  type="email"
+                  id="user-email"
+                  placeholder="Email Address"
+                  required
+                />
+                <input
+                  type="tel"
+                  id="user-phone"
+                  placeholder="Phone Number"
+                  required
+                />
+              </div>
+
+              <div class="booking-actions">
+                <button class="btn btn-secondary" onclick="goToZoneSelection()">
+                  Back
+                </button>
+                <button class="btn btn-primary" onclick="completeBooking()">
+                  Complete Booking
+                </button>
+              </div>
+            </div>
+
+            <!-- Step 5: Confirmation -->
+            <div class="booking-step hidden" id="step-confirmation">
+              <div class="confirmation-message">
+                <div class="success-icon">✓</div>
+                <h3>Booking Confirmed!</h3>
+                <p>Confirmation details have been sent to your email</p>
+                <div id="confirmation-details"></div>
+                <button class="btn btn-primary" onclick="closeBookingModal()">
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pricing Section -->
+      <section class="pricing" id="pricing">
+        <div class="container">
+          <h2 class="section-title">Pricing & Booking</h2>
+
+          <div class="pricing-tabs">
+            <button class="tab-btn active" data-tab="hourly">Hourly</button>
+            <button class="tab-btn" data-tab="daily">Daily</button>
+            <button class="tab-btn" data-tab="monthly">Monthly</button>
+          </div>
+
+          <div class="pricing-cards" id="pricing-content">
+            <div class="price-card">
+              <h3>Standard</h3>
+              <p class="price-desc">Per hour</p>
+              <div class="price-amount">$12</div>
+              <button class="btn btn-primary-small">Select Plan</button>
+            </div>
+
+            <div class="price-card">
+              <h3>VIP</h3>
+              <p class="price-desc">Per hour</p>
+              <div class="price-amount">$24</div>
+              <button class="btn btn-primary-small">Select Plan</button>
+            </div>
+
+            <div class="price-card">
+              <h3>Bootcamp</h3>
+              <p class="price-desc">Per hour</p>
+              <div class="price-amount">$18</div>
+              <button class="btn btn-primary-small">Select Plan</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Gallery Section -->
+      <section class="gallery" id="gallery">
+        <div class="container">
+          <h2 class="section-title">Gallery</h2>
+          <p class="section-subtitle">Experience ARENA through our lens</p>
+
+          <div class="gallery-grid">
+            <div class="gallery-item gallery-item-1">
+              <img src="/arena-gaming/assets/VIPStationSetup1-DA0SUofJ.jpg" alt="VIP Station Setup" />
+              <div class="gallery-overlay">
+                <p>VIP Station Setup</p>
+              </div>
+            </div>
+            <div class="gallery-item gallery-item-2">
+              <img src="/arena-gaming/assets/TournamentArena-CK6bD3Qf.jpg" alt="Tournament Arena" />
+              <div class="gallery-overlay">
+                <p>Tournament Arena</p>
+              </div>
+            </div>
+            <div class="gallery-item gallery-item-3">
+              <img src="/arena-gaming/assets/CommunityLounge-CidvcvZM.jpg" alt="Community Lounge" />
+              <div class="gallery-overlay">
+                <p>Community Lounge</p>
+              </div>
+            </div>
+            <div class="gallery-item gallery-item-4">
+              <img src="/arena-gaming/assets/ProGamingRig-DGOqsy0g.jpg" alt="Pro Gaming Rig" />
+              <div class="gallery-overlay">
+                <p>Pro Gaming Rig</p>
+              </div>
+            </div>
+            <div class="gallery-item gallery-item-5">
+              <img src="/arena-gaming/assets/EsportsEvent-DXDMnwMQ.jpg" alt="Esports Event" />
+              <div class="gallery-overlay">
+                <p>Esports Event</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer Section -->
+      <footer class="footer" id="contact">
+        <div class="container">
+          <div class="footer-grid">
+            <div class="footer-col">
+              <h3>ARENA</h3>
+              <p>Premium esports gaming lounge. Where champions compete.</p>
+            </div>
+
+            <div class="footer-col">
+              <h4>Quick Links</h4>
+              <ul>
+                <li><a href="#">Zones</a></li>
+                <li><a href="#">Booking</a></li>
+                <li><a href="#">Events</a></li>
+                <li><a href="#">Teams</a></li>
+              </ul>
+            </div>
+
+            <div class="footer-col">
+              <h4>Contact</h4>
+              <ul>
+                <li>Downtown Gaming Hub</li>
+                <li>+1 (555) 123-4567</li>
+                <li>hello@arena.gg</li>
+              </ul>
+            </div>
+
+            <div class="footer-col">
+              <h4>Follow</h4>
+              <div class="card">
+                <span>Social</span>
+                <a
+                  class="social-link"
+                  target="_blank"
+                  href="https://www.youtube.com/?app=desktop&hl=ru"
+                >
+                  <svg
+                    version="1.1"
+                    id="Layer_1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                    viewBox="0 0 461.001 461.001"
+                    xml:space="preserve"
+                    fill="#000000"
+                  >
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g
+                      id="SVGRepo_tracerCarrier"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></g>
+                    <g id="SVGRepo_iconCarrier">
+                      <g>
+                        <path
+                          style="fill: #f61c0d"
+                          d="M365.257,67.393H95.744C42.866,67.393,0,110.259,0,163.137v134.728 c0,52.878,42.866,95.744,95.744,95.744h269.513c52.878,0,95.744-42.866,95.744-95.744V163.137 C461.001,110.259,418.135,67.393,365.257,67.393z M300.506,237.056l-126.06,60.123c-3.359,1.602-7.239-0.847-7.239-4.568V168.607 c0-3.774,3.982-6.22,7.348-4.514l126.06,63.881C304.363,229.873,304.298,235.248,300.506,237.056z"
+                        ></path>
+                      </g>
+                    </g>
+                  </svg>
+                </a>
+                <a
+                  class="social-link"
+                  target="_blank"
+                  href="https://www.tiktok.com/ru-RU/"
+                >
+                  <svg
+                    fill="#000000"
+                    viewBox="0 0 512 512"
+                    id="icons"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g
+                      id="SVGRepo_tracerCarrier"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></g>
+                    <g id="SVGRepo_iconCarrier">
+                      <path
+                        d="M412.19,118.66a109.27,109.27,0,0,1-9.45-5.5,132.87,132.87,0,0,1-24.27-20.62c-18.1-20.71-24.86-41.72-27.35-56.43h.1C349.14,23.9,350,16,350.13,16H267.69V334.78c0,4.28,0,8.51-.18,12.69,0,.52-.05,1-.08,1.56,0,.23,0,.47-.05.71,0,.06,0,.12,0,.18a70,70,0,0,1-35.22,55.56,68.8,68.8,0,0,1-34.11,9c-38.41,0-69.54-31.32-69.54-70s31.13-70,69.54-70a68.9,68.9,0,0,1,21.41,3.39l.1-83.94a153.14,153.14,0,0,0-118,34.52,161.79,161.79,0,0,0-35.3,43.53c-3.48,6-16.61,30.11-18.2,69.24-1,22.21,5.67,45.22,8.85,54.73v.2c2,5.6,9.75,24.71,22.38,40.82A167.53,167.53,0,0,0,115,470.66v-.2l.2.2C155.11,497.78,199.36,496,199.36,496c7.66-.31,33.32,0,62.46-13.81,32.32-15.31,50.72-38.12,50.72-38.12a158.46,158.46,0,0,0,27.64-45.93c7.46-19.61,9.95-43.13,9.95-52.53V176.49c1,.6,14.32,9.41,14.32,9.41s19.19,12.3,49.13,20.31c21.48,5.7,50.42,6.9,50.42,6.9V131.27C453.86,132.37,433.27,129.17,412.19,118.66Z"
+                      ></path>
+                    </g>
+                  </svg>
+                </a>
+                <a
+                  class="social-link"
+                  target="_blank"
+                  href="https://discord.com/"
+                >
+                  <svg
+                    viewBox="0 -28.5 256 256"
+                    version="1.1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                    preserveAspectRatio="xMidYMid"
+                    fill="#000000"
+                  >
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g
+                      id="SVGRepo_tracerCarrier"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></g>
+                    <g id="SVGRepo_iconCarrier">
+                      <g>
+                        <path
+                          d="M216.856339,16.5966031 C200.285002,8.84328665 182.566144,3.2084988 164.041564,0 C161.766523,4.11318106 159.108624,9.64549908 157.276099,14.0464379 C137.583995,11.0849896 118.072967,11.0849896 98.7430163,14.0464379 C96.9108417,9.64549908 94.1925838,4.11318106 91.8971895,0 C73.3526068,3.2084988 55.6133949,8.86399117 39.0420583,16.6376612 C5.61752293,67.146514 -3.4433191,116.400813 1.08711069,164.955721 C23.2560196,181.510915 44.7403634,191.567697 65.8621325,198.148576 C71.0772151,190.971126 75.7283628,183.341335 79.7352139,175.300261 C72.104019,172.400575 64.7949724,168.822202 57.8887866,164.667963 C59.7209612,163.310589 61.5131304,161.891452 63.2445898,160.431257 C105.36741,180.133187 151.134928,180.133187 192.754523,160.431257 C194.506336,161.891452 196.298154,163.310589 198.110326,164.667963 C191.183787,168.842556 183.854737,172.420929 176.223542,175.320965 C180.230393,183.341335 184.861538,190.991831 190.096624,198.16893 C211.238746,191.588051 232.743023,181.531619 254.911949,164.955721 C260.227747,108.668201 245.831087,59.8662432 216.856339,16.5966031 Z M85.4738752,135.09489 C72.8290281,135.09489 62.4592217,123.290155 62.4592217,108.914901 C62.4592217,94.5396472 72.607595,82.7145587 85.4738752,82.7145587 C98.3405064,82.7145587 108.709962,94.5189427 108.488529,108.914901 C108.508531,123.290155 98.3405064,135.09489 85.4738752,135.09489 Z M170.525237,135.09489 C157.88039,135.09489 147.510584,123.290155 147.510584,108.914901 C147.510584,94.5396472 157.658606,82.7145587 170.525237,82.7145587 C183.391518,82.7145587 193.761324,94.5189427 193.539891,108.914901 C193.539891,123.290155 183.391518,135.09489 170.525237,135.09489 Z"
+                          fill="#5865F2"
+                          fill-rule="nonzero"
+                        ></path>
+                      </g>
+                    </g>
+                  </svg>
+                </a>
+                <a class="social-link" target="_blank" href="https://x.com/X">
+                  <svg
+                    fill="#000000"
+                    viewBox="0 0 1024 1024"
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="icon"
+                  >
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g
+                      id="SVGRepo_tracerCarrier"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></g>
+                    <g id="SVGRepo_iconCarrier">
+                      <path
+                        d="M488.1 414.7V303.4L300.9 428l83.6 55.8zm254.1 137.7v-79.8l-59.8 39.9zM512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm278 533c0 1.1-.1 2.1-.2 3.1 0 .4-.1.7-.2 1a14.16 14.16 0 0 1-.8 3.2c-.2.6-.4 1.2-.6 1.7-.2.4-.4.8-.5 1.2-.3.5-.5 1.1-.8 1.6-.2.4-.4.7-.7 1.1-.3.5-.7 1-1 1.5-.3.4-.5.7-.8 1-.4.4-.8.9-1.2 1.3-.3.3-.6.6-1 .9-.4.4-.9.8-1.4 1.1-.4.3-.7.6-1.1.8-.1.1-.3.2-.4.3L525.2 786c-4 2.7-8.6 4-13.2 4-4.7 0-9.3-1.4-13.3-4L244.6 616.9c-.1-.1-.3-.2-.4-.3l-1.1-.8c-.5-.4-.9-.7-1.3-1.1-.3-.3-.6-.6-1-.9-.4-.4-.8-.8-1.2-1.3a7 7 0 0 1-.8-1c-.4-.5-.7-1-1-1.5-.2-.4-.5-.7-.7-1.1-.3-.5-.6-1.1-.8-1.6-.2-.4-.4-.8-.5-1.2-.2-.6-.4-1.2-.6-1.7-.1-.4-.3-.8-.4-1.2-.2-.7-.3-1.3-.4-2-.1-.3-.1-.7-.2-1-.1-1-.2-2.1-.2-3.1V427.9c0-1 .1-2.1.2-3.1.1-.3.1-.7.2-1a14.16 14.16 0 0 1 .8-3.2c.2-.6.4-1.2.6-1.7.2-.4.4-.8.5-1.2.2-.5.5-1.1.8-1.6.2-.4.4-.7.7-1.1.6-.9 1.2-1.7 1.8-2.5.4-.4.8-.9 1.2-1.3.3-.3.6-.6 1-.9.4-.4.9-.8 1.3-1.1.4-.3.7-.6 1.1-.8.1-.1.3-.2.4-.3L498.7 239c8-5.3 18.5-5.3 26.5 0l254.1 169.1c.1.1.3.2.4.3l1.1.8 1.4 1.1c.3.3.6.6 1 .9.4.4.8.8 1.2 1.3.7.8 1.3 1.6 1.8 2.5.2.4.5.7.7 1.1.3.5.6 1 .8 1.6.2.4.4.8.5 1.2.2.6.4 1.2.6 1.7.1.4.3.8.4 1.2.2.7.3 1.3.4 2 .1.3.1.7.2 1 .1 1 .2 2.1.2 3.1V597zm-254.1 13.3v111.3L723.1 597l-83.6-55.8zM281.8 472.6v79.8l59.8-39.9zM512 456.1l-84.5 56.4 84.5 56.4 84.5-56.4zM723.1 428L535.9 303.4v111.3l103.6 69.1zM384.5 541.2L300.9 597l187.2 124.6V610.3l-103.6-69.1z"
+                      ></path>
+                    </g>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script src="src/main.js"></script>
+    <script src="src/pricing.js"></script>
+    <script src="src/booking.js"></script>
+    <script src="src/search-filter.js"></script>
+  </body>
+</html>
